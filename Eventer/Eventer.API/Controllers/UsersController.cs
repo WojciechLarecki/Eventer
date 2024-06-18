@@ -1,4 +1,6 @@
 using Eventer.Data.Models;
+using Eventer.Logic.DTOs;
+using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,35 +10,35 @@ namespace Eventer.API.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly EventerContext _context;
+        private readonly UserService _service;
         private readonly ILogger<UsersController> _logger;
 
-        public UsersController(ILogger<UsersController> logger, EventerContext context)
+        public UsersController(ILogger<UsersController> logger, UserService service)
         {
-            _context = context;
+            _service = service;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<Event> GetUsers()
+        public IEnumerable<UserDTO> GetUsers()
         {
-            throw new NotImplementedException();
+            return _service.GetUsers();
         }
 
         [HttpPost]
-        public IEnumerable<Event> CreateUser()
+        public IEnumerable<User> CreateUser()
         {
             throw new NotImplementedException();
         }
 
         [HttpPut]
-        public IEnumerable<Event> EditUser()
+        public IEnumerable<User> EditUser()
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete]
-        public IEnumerable<Event> DeleteUser()
+        public IEnumerable<User> DeleteUser()
         {
             throw new NotImplementedException();
         }

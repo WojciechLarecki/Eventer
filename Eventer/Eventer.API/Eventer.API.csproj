@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Eventer.Data\Eventer.Data.csproj" />
+    <ProjectReference Include="..\Eventer.Logic\Eventer.Logic.csproj" />
   </ItemGroup>
 
 </Project>
