@@ -20,5 +20,10 @@ namespace Eventer.Logic
         {
             return users.Select(u => ToDTO(u));
         }
+
+        public static User ToEntity(this UserDTO userDTO)
+        {
+            return new User();
+        }
     }
 }

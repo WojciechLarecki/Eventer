@@ -14,6 +14,11 @@ namespace Eventer.Data.Repositories
         {
         }
 
+        public void Add(User user)
+        {
+            _context.Users.Add(user);
+        }
+
         public User? Find(Guid id)
         {
             return _context.Users.Find(id);

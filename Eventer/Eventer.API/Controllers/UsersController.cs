@@ -26,9 +26,9 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<User> CreateUser()
+        public void CreateUser(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            _service.CreateUser(userDTO);
         }
 
         [HttpPut]

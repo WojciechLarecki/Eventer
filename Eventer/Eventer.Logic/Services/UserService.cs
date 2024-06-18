@@ -17,6 +17,13 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
+        public void CreateUser(UserDTO userDTO)
+        {
+            var user = userDTO.ToEntity();
+            _repoManager.UserRepository.Add(user);
+            _repoManager.Save();
+        }
+
         public IEnumerable<UserDTO> GetUsers()
         {
             var users = _repoManager.UserRepository.GetAll(false);
