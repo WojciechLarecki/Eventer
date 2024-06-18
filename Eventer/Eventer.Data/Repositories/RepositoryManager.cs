@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eventer.Data.Repositories
 {
-    public class RepositoryManager
+    public class RepositoryManager : IRepositoryManager
     {
         private readonly EventerContext _context;
         private readonly Lazy<UserRepository> _userRepo;
