@@ -1,6 +1,7 @@
 ﻿using Eventer.Logic.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,9 +30,15 @@ namespace Eventer.Logic.Validators
         public static void CheckRole(byte? role) 
         {
             if (!role.HasValue)
-                throw new ArgumentNullException("Usr role is null");
+                throw new ArgumentNullException("User role is null");
             if (role != 0 || role != 1)
                 throw new ArgumentException("Invalida user role.");
+        }
+
+        public static void CheckPassword(string? password)
+        {
+            if (!string.IsNullOrWhiteSpace(password))
+                throw new ArgumentNullException("User password is null or empty");
         }
     }
 }

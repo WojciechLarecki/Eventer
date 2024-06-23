@@ -28,9 +28,17 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost]
-        public void CreateUser(UserDTO userDTO)
+        public IActionResult CreateUser(UserDTO userDTO)
         {
-            _service.CreateUser(userDTO);
+            try
+            {
+                _service.CreateUser(userDTO);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPut]

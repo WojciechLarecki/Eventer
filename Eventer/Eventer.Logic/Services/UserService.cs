@@ -21,7 +21,13 @@ namespace Eventer.Logic.Services
 
         public void CreateUser(UserDTO userDTO)
         {
+            UserValidator.CheckEmail(userDTO.Email);
+            UserValidator.CheckPassword(userDTO.Password);
+            UserValidator.CheckRole(userDTO.Role);
+            
+            userDTO.Id = Guid.NewGuid();
             var user = userDTO.ToEntity();
+            
             _repoManager.UserRepository.Add(user);
             _repoManager.Save();
         }
