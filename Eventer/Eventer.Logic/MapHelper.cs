@@ -13,9 +13,12 @@ namespace Eventer.Logic
     {
         public static UserDTO ToDTO(this User user)
         {
-            return new UserDTO();
+            return new UserDTO()
+            {
+                Id = user.Id,
+                Email = user.Email
+            };
         }
-
         public static IEnumerable<UserDTO> ToDTOs(this IEnumerable<User> users)
         {
             return users.Select(u => ToDTO(u));
@@ -23,7 +26,10 @@ namespace Eventer.Logic
 
         public static User ToEntity(this UserDTO userDTO)
         {
-            return new User();
+            return new User()
+            {
+                Role = userDTO.Role;
+            }
         }
     }
 }
