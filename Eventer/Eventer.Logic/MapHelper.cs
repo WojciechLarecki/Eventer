@@ -40,5 +40,22 @@ namespace Eventer.Logic
                 Id = userDTO.Id!.Value
             };
         }
+
+        public static EventDTO ToDTO(this Event @event)
+        {
+            return new EventDTO()
+            {
+                StartDate = @event.StartDate,
+                EndDate = @event.EndDate,
+                Name = @event.Name,
+                Id = @event.Id,
+                JoinDate = @event.JoinDate
+            };
+        }
+
+        public static IEnumerable<EventDTO> ToDTOs(this IEnumerable<Event> users)
+        {
+            return users.Select(e => ToDTO(e));
+        }
     }
 }
