@@ -26,6 +26,11 @@ namespace Eventer.Logic.Services
             _repoManager.Save();
         }
 
+        public void DeleteUser(Guid guid)
+        {
+            _repoManager.UserRepository.Delete(guid);
+        }
+
         public IEnumerable<UserDTO> GetUsers()
         {
             var users = _repoManager.UserRepository.GetAll(false);

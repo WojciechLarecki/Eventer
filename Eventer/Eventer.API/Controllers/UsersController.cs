@@ -51,10 +51,18 @@ namespace Eventer.API.Controllers
             }
         }
 
-        [HttpDelete]
-        public IEnumerable<User> DeleteUser()
+        [HttpDelete("{id:Guid}")]
+        public IActionResult DeleteUser(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

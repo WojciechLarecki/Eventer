@@ -23,5 +23,13 @@ namespace Eventer.Data.Repositories
         {
             return _context.Users.Find(id);
         }
+
+        public void Delete(Guid id)
+        {
+            var user = _context.Users.Find(id);
+
+            if (user != null)
+                _context.Users.Remove(user);
+        }
     }
 }
