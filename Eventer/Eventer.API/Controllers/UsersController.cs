@@ -1,8 +1,10 @@
+using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace Eventer.API.Controllers
 {
@@ -32,9 +34,21 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPut]
-        public IEnumerable<User> EditUser()
+        public IActionResult EditUser(UserDTO userDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.UpdateUser(userDTO);
+                return Ok();
+            }
+            catch (NotFoundInDBException)
+            {
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpDelete]

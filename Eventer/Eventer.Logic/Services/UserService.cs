@@ -1,6 +1,8 @@
-﻿using Eventer.Data.Models;
+﻿using Eventer.Data.Exceptions;
+using Eventer.Data.Models;
 using Eventer.Data.Repositories;
 using Eventer.Logic.DTOs;
+using Eventer.Logic.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,22 @@ namespace Eventer.Logic.Services
             var users = _repoManager.UserRepository.GetAll(false);
             var userDTOs = users.ToDTOs();
             return userDTOs;
+        }
+
+        public void UpdateUser(UserDTO userDTO)
+        {
+            UserValidator.CheckGuid(userDTO.Id);
+            UserValidator.CheckEmail(userDTO.Email);
+            UserValidator.CheckRole(userDTO.Role);
+
+            var user = _repoManager.UserRepository.Find(userDTO.Id!.Value);
+
+            if (user == null)
+                throw new NotFoundInDBException("User not found in database.");
+
+            user.Email = userDTO.Email!;
+            user.Role = userDTO.Role!.Value;
+            _repoManager.Save();
         }
     }
 }
