@@ -1,6 +1,7 @@
 using Eventer.Data.Models;
+using Eventer.Logic.DTOs;
+using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Eventer.API.Controllers
 {
@@ -8,19 +9,35 @@ namespace Eventer.API.Controllers
     [Route("[controller]")]
     public class EventsController : ControllerBase
     {
-        private readonly EventerContext _context;
+        private readonly EventService _service;
         private readonly ILogger<EventsController> _logger;
 
-        public EventsController(ILogger<EventsController> logger, EventerContext context)
+        public EventsController(ILogger<EventsController> logger, EventService service)
         {
-            _context = context;
+            _service = service;
             _logger = logger;
         }
 
         [HttpGet]
-        public IEnumerable<Event> GetEvents()
+        public IActionResult GetEvents()
         {
-            throw new NotImplementedException();
+            var dtos = new List<EventDTO>();
+            
+            try
+            {
+                dtos = _service.GetEvents().ToList();
+            }
+            catch
+            {
+                return StatusCode(500, "Server has a problem with retring data.");
+            }
+
+            if (dtos.Count == 0)
+            {
+                return NoContent();
+            }
+
+            return Ok(dtos);
         }
 
         [HttpPost]
