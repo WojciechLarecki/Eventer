@@ -8,10 +8,10 @@ namespace Eventer.Logic.DTOs
 {
     public class EventDTO
     {
-        public DateTime StartDate { get; internal set; }
-        public DateTime EndDate { get; internal set; }
-        public string Name { get; internal set; }
-        public Guid Id { get; internal set; }
-        public DateTime? JoinDate { get; internal set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string? Name { get; set; }
+        public Guid? Id { get; set; }
+        public DateTime? JoinDate { get; set; }
     }
 }
