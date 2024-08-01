@@ -23,5 +23,10 @@ namespace Eventer.Logic.Services
 
             return eventDTOs;
         }
+
+        public void UpdateEvent(EventDTO eventDTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

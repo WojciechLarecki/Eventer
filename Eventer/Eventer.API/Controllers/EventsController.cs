@@ -1,3 +1,4 @@
+using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.Services;
@@ -47,9 +48,22 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPut]
-        public IEnumerable<Event> EditEvent()
+        public IActionResult UpdateEvent(EventDTO eventDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.UpdateEvent(eventDTO);
+            }
+            catch (NotFoundInDBException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            } 
+
+            return Ok();
         }
 
         [HttpDelete]
