@@ -2,3 +2,7 @@ DESC:
 Event needs to be updated. When user enters the meeting or leave it event must change its state.
 
 Steps:
+
+02.08.2024 
+Added CommonValidator class to gather common validations.
+Add entire UpdateEvent Endpoint. Task closed.
