@@ -45,9 +45,18 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<Event> CreateEvent()
+        public IActionResult CreateEvent(EventDTO eventDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.CreateEvent(eventDTO);
+            }
+            catch(Exception)
+            {
+                return StatusCode(500, "Server has a problem with event creation.");
+            }
+
+            return Ok();
         }
 
         [HttpPut]

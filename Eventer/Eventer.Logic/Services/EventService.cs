@@ -18,6 +18,11 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
+        public void CreateEvent(EventDTO eventDTO)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteEvent(Guid eventId)
         {
             var eventToDelete = _repoManager.EventsRepository.FindFull(eventId);
