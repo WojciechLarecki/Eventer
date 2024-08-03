@@ -92,5 +92,24 @@ namespace Eventer.API.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("/Events/{eventId:Guid}/Users/{userId:Guid}")]
+        public IActionResult DeleteUserFromEvent(Guid eventId, Guid userId)
+        {
+            try
+            {
+                _service.AddUserToEvent(eventId, userId);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest();
+            }
+            catch (Exception)
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
+        }
     }
 }
