@@ -18,6 +18,23 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
+        public void DeleteEvent(Guid eventId)
+        {
+            var eventToDelete = _repoManager.EventsRepository.FindFull(eventId);
+
+            if (eventToDelete == null)
+            {
+                throw new NotFoundInDBException("Event has not been found in database.");
+            }
+
+            if (eventToDelete.Users.Count != 0)
+            {
+                throw new InvalidOperationException("Event is not empty, therefore cannot be deleted.");
+            }
+
+            _repoManager.EventsRepository.Delete(eventId);
+        }
+
         public IEnumerable<EventDTO> GetEvents()
         {
             var events = _repoManager.EventsRepository.GetAll();

@@ -3,6 +3,8 @@ using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Reflection.Metadata;
 
 namespace Eventer.API.Controllers
 {
@@ -12,6 +14,7 @@ namespace Eventer.API.Controllers
     {
         private readonly EventService _service;
         private readonly ILogger<EventsController> _logger;
+        private IActionResult InternalServerError() => StatusCode(500, "Server has a problem with retring data.");
 
         public EventsController(ILogger<EventsController> logger, EventService service)
         {
@@ -60,16 +63,33 @@ namespace Eventer.API.Controllers
             }
             catch (Exception)
             {
-                return BadRequest();
+                return StatusCode(500, "Server has a problem with retring data.");
             } 
 
             return Ok();
         }
 
         [HttpDelete]
-        public IEnumerable<Event> DeleteEvent()
+        public IActionResult DeleteEvent(Guid eventId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.DeleteEvent(eventId);
+            }
+            catch (NotFoundInDBException)
+            {
+                return NotFound();
+            }
+            catch(InvalidOperationException)
+            {
+                return Forbid();
+            }
+            catch(Exception)
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
         }
     }
 }

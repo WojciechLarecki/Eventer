@@ -1,4 +1,5 @@
 ﻿using Eventer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,23 @@ namespace Eventer.Data.Repositories
         {
         }
 
+        public void Delete(Guid eventId)
+        {
+            _context.Events.Remove(h)
+            throw new NotImplementedException();
+        }
+
         public Event? Find(Guid id)
         {
             return _context.Events.Find(id);
+        }
+
+        public Event? FindFull(Guid id)
+        {
+            return _context.Events
+                .Where(e => e.Id == id)
+                .Include(e => e.Users)
+                .FirstOrDefault();
         }
     }
 }
