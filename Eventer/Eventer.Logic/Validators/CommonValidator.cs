@@ -17,9 +17,12 @@ namespace Eventer.Logic.Validators
             }
         }
 
-        internal static void CheckIfProperDateSpan(DateTime value1, DateTime value2)
+        public static void CheckIfProperDateSpan(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            if (startDate >= endDate)
+            {
+                throw new ArgumentOutOfRangeException($"Date from {startDate} to {endDate} gives invalid timespan.");
+            }
         }
     }
 }
