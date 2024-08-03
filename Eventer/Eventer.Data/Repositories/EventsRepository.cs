@@ -19,10 +19,14 @@ namespace Eventer.Data.Repositories
             _context.Events.Add(eventToDB);
         }
 
-        public void Delete(Guid eventId)
+        public void Delete(Event eventToDelete)
         {
-            _context.Events.Remove(h)
-            throw new NotImplementedException();
+            if (eventToDelete.Users.Count != 0)
+            {
+                throw new InvalidOperationException("Event is not empty, therefore cannot be deleted.");
+            }
+            
+            _context.Events.Remove(eventToDelete);
         }
 
         public Event? Find(Guid id)

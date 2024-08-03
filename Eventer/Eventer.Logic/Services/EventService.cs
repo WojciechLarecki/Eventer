@@ -47,12 +47,7 @@ namespace Eventer.Logic.Services
                 throw new NotFoundInDBException("Event has not been found in database.");
             }
 
-            if (eventToDelete.Users.Count != 0)
-            {
-                throw new InvalidOperationException("Event is not empty, therefore cannot be deleted.");
-            }
-
-            _repoManager.EventsRepository.Delete(eventId);
+            _repoManager.EventsRepository.Delete(eventToDelete);
         }
 
         public IEnumerable<EventDTO> GetEvents()
