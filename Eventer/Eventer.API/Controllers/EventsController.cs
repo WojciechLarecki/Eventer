@@ -51,6 +51,14 @@ namespace Eventer.API.Controllers
             {
                 _service.CreateEvent(eventDTO);
             }
+            catch(NotFoundInDBException)
+            {
+                return NotFound();
+            }
+            catch(ArgumentException)
+            {
+                return BadRequest();
+            }
             catch(Exception)
             {
                 return StatusCode(500, "Server has a problem with event creation.");
