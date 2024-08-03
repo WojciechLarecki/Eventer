@@ -14,6 +14,7 @@ namespace Eventer.API.Controllers
     {
         private readonly UserService _service;
         private readonly ILogger<UsersController> _logger;
+        private IActionResult InternalServerError(string? message = nullh) => message == null ? StatusCode(500) : StatusCode(500, message);
 
         public UsersController(ILogger<UsersController> logger, UserService service)
         {
@@ -71,6 +72,25 @@ namespace Eventer.API.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+
+        [HttpPost("/Events/{eventId:Guid}/Users/{userId:Guid}")]
+        public IActionResult AddUserToEvent(Guid eventId, Guid userId)
+        {
+            try
+            {
+                _service.AddUserToEvent(eventId, userId);
+            }
+            catch(ArgumentException)
+            {
+                return BadRequest();
+            }
+            catch(Exception)
+            {
+                return InternalServerError();
+            }
+
+            return Ok();
         }
     }
 }

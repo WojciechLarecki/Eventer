@@ -19,6 +19,19 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
+        public void AddUserToEvent(Guid eventId, Guid userId)
+        {
+            var eventFromDB = _repoManager.EventsRepository.FindFull(eventId);
+            CommonValidator.CheckIfNotNull(eventFromDB);   
+            
+            var userFromDB = _repoManager.UserRepository.Find(userId);
+            CommonValidator.CheckIfNotNull(userFromDB);
+            
+            eventFromDB!.Users.Add(userFromDB!);
+
+            _repoManager.Save();
+        }
+
         public void CreateUser(UserDTO userDTO)
         {
             UserValidator.CheckEmail(userDTO.Email);
