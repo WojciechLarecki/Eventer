@@ -2,3 +2,5 @@ DESC:
 User needs to be deleted from an event. Feature will delete atendence from EventsUsers.
 
 Steps:
+03.08.2024 20;47
+Implemented feature. Close task.

@@ -98,7 +98,7 @@ namespace Eventer.API.Controllers
         {
             try
             {
-                _service.AddUserToEvent(eventId, userId);
+                _service.DeleteUserFromEvent(eventId, userId);
             }
             catch (ArgumentException)
             {
