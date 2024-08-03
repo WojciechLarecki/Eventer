@@ -1,4 +1,5 @@
 ﻿using Eventer.Data.Exceptions;
+using Eventer.Data.Models;
 using Eventer.Data.Repositories;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.Validators;
@@ -20,7 +21,21 @@ namespace Eventer.Logic.Services
 
         public void CreateEvent(EventDTO eventDTO)
         {
-            throw new NotImplementedException();
+            CommonValidator.CheckIfNotNull(eventDTO.StartDate);
+            CommonValidator.CheckIfNotNull(eventDTO.EndDate);
+            CommonValidator.CheckIfNotNull(eventDTO.Name);
+            CommonValidator.CheckIfProperDateSpan(eventDTO.StartDate!.Value, eventDTO.EndDate!.Value);
+            
+            var eventToDB = new Event()
+            {
+                JoinDate = eventDTO.JoinDate,
+                Name = eventDTO.Name!,
+                StartDate = eventDTO.StartDate!.Value,
+                EndDate = eventDTO.EndDate!.Value
+            };
+
+            _repoManager.EventsRepository.Add(eventToDB);
+            _repoManager.Save();
         }
 
         public void DeleteEvent(Guid eventId)

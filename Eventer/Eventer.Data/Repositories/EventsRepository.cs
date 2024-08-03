@@ -14,6 +14,11 @@ namespace Eventer.Data.Repositories
         {
         }
 
+        public void Add(Event eventToDB)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(Guid eventId)
         {
             _context.Events.Remove(h)

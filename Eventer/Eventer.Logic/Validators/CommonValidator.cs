@@ -16,5 +16,10 @@ namespace Eventer.Logic.Validators
                 throw new ArgumentNullException($"Object of type {type} cannot be null.");
             }
         }
+
+        internal static void CheckIfProperDateSpan(DateTime value1, DateTime value2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
