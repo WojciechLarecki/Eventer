@@ -5,3 +5,7 @@ Steps:
 
 03.08.2024 
 Add entire EventDelete Endpoint. Task closed.
+
+03.08.2024 12:40
+Delete method in events repo was not implemented and threw exception. Task reopen.
+
