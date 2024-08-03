@@ -16,7 +16,7 @@ namespace Eventer.Data.Repositories
 
         public void Add(Event eventToDB)
         {
-            throw new NotImplementedException();
+            _context.Events.Add(eventToDB);
         }
 
         public void Delete(Guid eventId)
