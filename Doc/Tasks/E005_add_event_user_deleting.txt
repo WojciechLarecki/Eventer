@@ -1,0 +1,4 @@
+DESC:
+User needs to be deleted from an event. Feature will delete atendence from EventsUsers.
+
+Steps:
