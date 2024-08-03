@@ -1,0 +1,4 @@
+DESC:
+User needs to be added to an event. Feature will add atendence to EventsUsers.
+
+Steps:
