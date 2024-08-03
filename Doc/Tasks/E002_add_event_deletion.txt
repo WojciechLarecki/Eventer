@@ -1,0 +1,8 @@
+DESC:
+Event needs to be deleted. Event should be deleted only if user's list is empty.
+
+Steps:
+
+02.08.2024 
+Added CommonValidator class to gather common validations.
+Add entire UpdateEvent Endpoint. Task closed.
