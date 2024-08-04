@@ -1,0 +1,4 @@
+DESC:
+There is need to list all events of given user and all users of given event.
+
+Steps:
