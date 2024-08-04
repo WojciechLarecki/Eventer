@@ -1,26 +1,42 @@
+using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
+using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eventer.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
     public class CSVController : ControllerBase
     {
-        private readonly EventerContext _context;
+        private readonly FileService _service;
         private readonly ILogger<CSVController> _logger;
 
-        public CSVController(ILogger<CSVController> logger, EventerContext context)
+        public CSVController(ILogger<CSVController> logger, FileService service)
         {
-            _context = context;
+            _service = service;
             _logger = logger;
         }
 
-        [HttpGet]
-        public IActionResult GetUsersListCSV()
+        [HttpGet("Event/{eventId:Guid}/Users/listCSV")]
+        public IActionResult GetEventUsersListCSV(Guid eventId)
         {
-            throw new NotImplementedException();
+            FileContentResult file;
+            try
+            {
+                var content = _service.GetEventUsersListCSV(eventId);
+                file = new FileContentResult(content, "text/csv");
+            }
+            catch (NotFoundInDBException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            
+            return file;
         }
 
         [HttpGet]
