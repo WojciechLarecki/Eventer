@@ -14,7 +14,7 @@ namespace Eventer.API.Controllers
     {
         private readonly UserService _service;
         private readonly ILogger<UsersController> _logger;
-        private IActionResult InternalServerError(string? message = nullh) => message == null ? StatusCode(500) : StatusCode(500, message);
+        private IActionResult InternalServerError(string? message = null) => message == null ? StatusCode(500) : StatusCode(500, message);
 
         public UsersController(ILogger<UsersController> logger, UserService service)
         {
