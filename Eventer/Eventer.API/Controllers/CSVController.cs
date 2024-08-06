@@ -22,10 +22,14 @@ namespace Eventer.API.Controllers
         public IActionResult GetEventUsersListCSV(Guid eventId)
         {
             FileContentResult file;
+            byte[] content;
+            string fileName;
             try
             {
-                var content = _service.GetEventUsersListCSV(eventId);
+                (content, fileName) = _service.GetEventUsersListCSV(eventId);
+
                 file = new FileContentResult(content, "text/csv");
+                file.FileDownloadName = fileName;
             }
             catch (NotFoundInDBException)
             {
