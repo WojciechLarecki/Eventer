@@ -34,6 +34,11 @@ namespace Eventer.Logic.Services
             return (content, fileName);
         }
 
+        public (byte[] content, string fileName) GetUserEventsListCSV(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         private string GetUserListCSVFileName(string eventName)
         {
             var date = DateTime.Now;

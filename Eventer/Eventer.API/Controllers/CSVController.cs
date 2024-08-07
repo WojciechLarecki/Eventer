@@ -3,6 +3,7 @@ using Eventer.Data.Models;
 using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Eventer.API.Controllers
 {
@@ -43,10 +44,29 @@ namespace Eventer.API.Controllers
             return file;
         }
 
-        [HttpGet]
-        public IActionResult GetEventsListCSV()
+        [HttpGet("User/{userId:Guid}/Events/listCSV")]
+        public IActionResult GetUserEventsListCSV(Guid userId)
         {
-            throw new NotImplementedException();
+            FileContentResult file;
+            byte[] content;
+            string fileName;
+            try
+            {
+                (content, fileName) = _service.GetUserEventsListCSV(userId);
+
+                file = new FileContentResult(content, "text/csv");
+                file.FileDownloadName = fileName;
+            }
+            catch (NotFoundInDBException)
+            {
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+
+            return file;
         }
     }
 }
