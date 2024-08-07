@@ -1,4 +1,5 @@
 ﻿using Eventer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,14 @@ namespace Eventer.Data.Repositories
 
             if (user != null)
                 _context.Users.Remove(user);
+        }
+
+        public User? FindFull(Guid id)
+        {
+            return _context.Users
+                .Where(u => u.Id == id)
+                .Include(u => u.Events)
+                .FirstOrDefault();
         }
     }
 }
