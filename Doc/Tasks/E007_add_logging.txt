@@ -1,0 +1,6 @@
+DESC:
+Application needs logging service for troubleshoot and work flow information.
+
+Steps:
+25.08.2024 23;00
+Strart implementing task.
