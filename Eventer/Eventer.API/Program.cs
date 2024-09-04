@@ -2,6 +2,7 @@ using Eventer.API;
 using Eventer.Data.Repositories;
 using Eventer.Logic.Services;
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddSqlConnection(builder.Configuration.GetConnectionString("Eve
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<IRepositoryManager, RepositoryManager>();
 builder.Services.AddControllers();
+
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
 var app = builder.Build();
 
