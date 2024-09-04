@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventer.Data", "Eventer.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventer.Logic", "Eventer.Logic\Eventer.Logic.csproj", "{89F7720D-5612-45D4-BB86-BE653BB56ADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventer.Logging", "Eventer.Logging\Eventer.Logging.csproj", "{A8832EF5-D143-4BD4-B7A2-B7D22A0D05A7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{89F7720D-5612-45D4-BB86-BE653BB56ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89F7720D-5612-45D4-BB86-BE653BB56ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89F7720D-5612-45D4-BB86-BE653BB56ADD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8832EF5-D143-4BD4-B7A2-B7D22A0D05A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8832EF5-D143-4BD4-B7A2-B7D22A0D05A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8832EF5-D143-4BD4-B7A2-B7D22A0D05A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8832EF5-D143-4BD4-B7A2-B7D22A0D05A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
