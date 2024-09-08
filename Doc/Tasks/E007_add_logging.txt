@@ -3,4 +3,7 @@ Application needs logging service for troubleshoot and work flow information.
 
 Steps:
 25.08.2024 23;00
-Strart implementing task.
+Start implementing task.
+
+08.09.2024 19:30
+Add loging to controllers. Task closed.
