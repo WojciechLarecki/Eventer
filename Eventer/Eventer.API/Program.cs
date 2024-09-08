@@ -1,4 +1,5 @@
 using Eventer.API;
+using Eventer.API.Logging;
 using Eventer.Data.Repositories;
 using Eventer.Logic.Services;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqlConnection(builder.Configuration.GetConnectionString("Eventer"));
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<IRepositoryManager, RepositoryManager>();
+builder.Services.AddTransient(typeof(IRequestLogger<>), typeof(RequestLogger<>));
 builder.Services.AddControllers();
 
 builder.Logging.ClearProviders();
