@@ -1,3 +1,4 @@
+using Eventer.API.Logging;
 using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
@@ -13,10 +14,10 @@ namespace Eventer.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _service;
-        private readonly ILogger<UsersController> _logger;
+        private readonly IRequestLogger<UsersController> _logger;
         private IActionResult InternalServerError(string? message = null) => message == null ? StatusCode(500) : StatusCode(500, message);
 
-        public UsersController(ILogger<UsersController> logger, UserService service)
+        public UsersController(IRequestLogger<UsersController> logger, UserService service)
         {
             _service = service;
             _logger = logger;
@@ -38,6 +39,7 @@ namespace Eventer.API.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest(e.Message);
             }
         }
@@ -50,12 +52,14 @@ namespace Eventer.API.Controllers
                 _service.UpdateUser(userDTO);
                 return Ok();
             }
-            catch (NotFoundInDBException)
+            catch (NotFoundInDBException e)
             {
+                _logger.LogNotFound(e);
                 return NotFound();
             }
             catch (Exception e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest(e.Message);
             }
         }
@@ -70,6 +74,7 @@ namespace Eventer.API.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest(e.Message);
             }
         }
@@ -81,12 +86,14 @@ namespace Eventer.API.Controllers
             {
                 _service.AddUserToEvent(eventId, userId);
             }
-            catch(ArgumentException)
+            catch(ArgumentException e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest();
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                _logger.LogInternalServerError(e);
                 return InternalServerError();
             }
 
@@ -100,12 +107,14 @@ namespace Eventer.API.Controllers
             {
                 _service.DeleteUserFromEvent(eventId, userId);
             }
-            catch (ArgumentException)
+            catch (ArgumentException e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogInternalServerError(e);
                 return InternalServerError();
             }
 
