@@ -1,3 +1,4 @@
+using Eventer.API.Logging;
 using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
@@ -13,10 +14,10 @@ namespace Eventer.API.Controllers
     public class EventsController : ControllerBase
     {
         private readonly EventService _service;
-        private readonly ILogger<EventsController> _logger;
+        private readonly IRequestLogger<EventsController> _logger;
         private IActionResult InternalServerError() => StatusCode(500, "Server has a problem with retring data.");
 
-        public EventsController(ILogger<EventsController> logger, EventService service)
+        public EventsController(IRequestLogger<EventsController> logger, EventService service)
         {
             _service = service;
             _logger = logger;
@@ -25,19 +26,21 @@ namespace Eventer.API.Controllers
         [HttpGet]
         public IActionResult GetEvents()
         {
-            var dtos = new List<EventDTO>();
-            
+            List<EventDTO> dtos;
+
             try
             {
                 dtos = _service.GetEvents().ToList();
             }
-            catch
+            catch (Exception e)
             {
-                return StatusCode(500, "Server has a problem with retring data.");
+                _logger.LogInternalServerError(e);
+                return InternalServerError();
             }
 
             if (dtos.Count == 0)
             {
+                _logger.LogNoContent();
                 return NoContent();
             }
 
@@ -51,17 +54,20 @@ namespace Eventer.API.Controllers
             {
                 _service.CreateEvent(eventDTO);
             }
-            catch(NotFoundInDBException)
+            catch (NotFoundInDBException e)
             {
+                _logger.LogNotFound(e);
                 return NotFound();
             }
-            catch(ArgumentException)
+            catch (ArgumentException e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest();
             }
-            catch(Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Server has a problem with event creation.");
+                _logger.LogInternalServerError(e);
+                return InternalServerError();
             }
 
             return Ok();
@@ -74,14 +80,16 @@ namespace Eventer.API.Controllers
             {
                 _service.UpdateEvent(eventDTO);
             }
-            catch (NotFoundInDBException)
+            catch (NotFoundInDBException e)
             {
+                _logger.LogNotFound(e);
                 return NotFound();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, "Server has a problem with retring data.");
-            } 
+                _logger.LogInternalServerError(e);
+                return InternalServerError();
+            }
 
             return Ok();
         }
@@ -93,16 +101,19 @@ namespace Eventer.API.Controllers
             {
                 _service.DeleteEvent(eventId);
             }
-            catch (NotFoundInDBException)
+            catch (NotFoundInDBException e)
             {
+                _logger.LogNotFound(e);
                 return NotFound();
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException e)
             {
+                _logger.LogForbid(e);
                 return Forbid();
             }
-            catch(Exception)
+            catch (Exception e)
             {
+                _logger.LogInternalServerError(e);
                 return InternalServerError();
             }
 

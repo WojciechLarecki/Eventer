@@ -23,5 +23,15 @@ namespace Eventer.API.Logging
         {
             _logger.LogError(e, "App returns code {code} - Internal server error", 500);
         }
+
+        public void LogNoContent()
+        {
+            _logger.LogInformation("App returns code {code} - No content", 204);
+        }
+
+        public void LogForbid(Exception e)
+        {
+            _logger.LogWarning("App returns code {code} - Forbidded", 403);
+        }
     }
 }
