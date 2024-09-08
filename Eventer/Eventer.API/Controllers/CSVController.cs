@@ -1,3 +1,4 @@
+using Eventer.API.Logging;
 using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
 using Eventer.Logic.Services;
@@ -11,9 +12,9 @@ namespace Eventer.API.Controllers
     public class CSVController : ControllerBase
     {
         private readonly FileService _service;
-        private readonly ILogger<CSVController> _logger;
+        private readonly IRequestLogger<CSVController> _logger;
 
-        public CSVController(ILogger<CSVController> logger, FileService service)
+        public CSVController(IRequestLogger<CSVController> logger, FileService service)
         {
             _service = service;
             _logger = logger;
@@ -32,12 +33,14 @@ namespace Eventer.API.Controllers
                 file = new FileContentResult(content, "text/csv");
                 file.FileDownloadName = fileName;
             }
-            catch (NotFoundInDBException)
+            catch (NotFoundInDBException e)
             {
+                _logger.LogNotFound(e);
                 return NotFound();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest();
             }
             
@@ -57,12 +60,14 @@ namespace Eventer.API.Controllers
                 file = new FileContentResult(content, "text/csv");
                 file.FileDownloadName = fileName;
             }
-            catch (NotFoundInDBException)
+            catch (NotFoundInDBException e)
             {
+                _logger.LogNotFound(e);
                 return NotFound();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                _logger.LogBadRequest(e);
                 return BadRequest();
             }
 
