@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSqlConnection(builder.Configuration.GetConnectionString("Eventer"));
 builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<EventService>();
+builder.Services.AddTransient<FileService>();
 builder.Services.AddTransient<IRepositoryManager, RepositoryManager>();
 builder.Services.AddTransient(typeof(IRequestLogger<>), typeof(RequestLogger<>));
 builder.Services.AddControllers();
