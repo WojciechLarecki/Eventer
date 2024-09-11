@@ -1,0 +1,9 @@
+POURPOSE:
+Application could have clearer code. Reduced number of try catch statemest. 
+
+DESC:
+Application uses a lot of try-catch in controllers. Providing global exception handling their number will decrease.
+
+Steps:
+11.09.2024 23;00
+Start implementing task.
