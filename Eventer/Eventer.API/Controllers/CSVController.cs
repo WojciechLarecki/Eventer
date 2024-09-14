@@ -26,24 +26,12 @@ namespace Eventer.API.Controllers
             FileContentResult file;
             byte[] content;
             string fileName;
-            try
-            {
-                (content, fileName) = _service.GetEventUsersListCSV(eventId);
 
-                file = new FileContentResult(content, "text/csv");
-                file.FileDownloadName = fileName;
-            }
-            catch (NotFoundInDBException e)
-            {
-                _logger.LogNotFound(e);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest();
-            }
-            
+            (content, fileName) = _service.GetEventUsersListCSV(eventId);
+
+            file = new FileContentResult(content, "text/csv");
+            file.FileDownloadName = fileName;
+
             return file;
         }
 
@@ -53,23 +41,11 @@ namespace Eventer.API.Controllers
             FileContentResult file;
             byte[] content;
             string fileName;
-            try
-            {
-                (content, fileName) = _service.GetUserEventsListCSV(userId);
 
-                file = new FileContentResult(content, "text/csv");
-                file.FileDownloadName = fileName;
-            }
-            catch (NotFoundInDBException e)
-            {
-                _logger.LogNotFound(e);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest();
-            }
+            (content, fileName) = _service.GetUserEventsListCSV(userId);
+
+            file = new FileContentResult(content, "text/csv");
+            file.FileDownloadName = fileName;
 
             return file;
         }

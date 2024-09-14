@@ -11,5 +11,10 @@ namespace Eventer.Data.Exceptions
         public NotFoundInDBException(string? message) : base(message)
         {
         }
+
+        public NotFoundInDBException(string ObjectType, object objectId) 
+            : base($"{ObjectType} with id {objectId} could not be found in Database.")
+        {
+        }
     }
 }

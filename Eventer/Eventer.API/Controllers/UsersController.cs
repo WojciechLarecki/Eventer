@@ -14,13 +14,10 @@ namespace Eventer.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _service;
-        private readonly IRequestLogger<UsersController> _logger;
-        private IActionResult InternalServerError(string? message = null) => message == null ? StatusCode(500) : StatusCode(500, message);
 
         public UsersController(IRequestLogger<UsersController> logger, UserService service)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -32,70 +29,28 @@ namespace Eventer.API.Controllers
         [HttpPost]
         public IActionResult CreateUser(UserDTO userDTO)
         {
-            try
-            {
-                _service.CreateUser(userDTO);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest(e.Message);
-            }
+            _service.CreateUser(userDTO);
+            return Ok();
         }
 
         [HttpPut]
         public IActionResult EditUser(UserDTO userDTO)
         {
-            try
-            {
-                _service.UpdateUser(userDTO);
-                return Ok();
-            }
-            catch (NotFoundInDBException e)
-            {
-                _logger.LogNotFound(e);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest(e.Message);
-            }
+            _service.UpdateUser(userDTO);
+            return Ok();
         }
 
         [HttpDelete("{id:Guid}")]
         public IActionResult DeleteUser(Guid id)
         {
-            try
-            {
-                _service.DeleteUser(id);
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest(e.Message);
-            }
+            _service.DeleteUser(id);
+            return Ok();
         }
 
         [HttpPost("/Events/{eventId:Guid}/Users/{userId:Guid}")]
         public IActionResult AddUserToEvent(Guid eventId, Guid userId)
         {
-            try
-            {
-                _service.AddUserToEvent(eventId, userId);
-            }
-            catch(ArgumentException e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest();
-            }
-            catch(Exception e)
-            {
-                _logger.LogInternalServerError(e);
-                return InternalServerError();
-            }
+            _service.AddUserToEvent(eventId, userId);
 
             return Ok();
         }
@@ -103,20 +58,7 @@ namespace Eventer.API.Controllers
         [HttpDelete("/Events/{eventId:Guid}/Users/{userId:Guid}")]
         public IActionResult DeleteUserFromEvent(Guid eventId, Guid userId)
         {
-            try
-            {
-                _service.DeleteUserFromEvent(eventId, userId);
-            }
-            catch (ArgumentException e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInternalServerError(e);
-                return InternalServerError();
-            }
+            _service.DeleteUserFromEvent(eventId, userId);
 
             return Ok();
         }

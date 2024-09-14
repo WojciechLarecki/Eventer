@@ -15,7 +15,6 @@ namespace Eventer.API.Controllers
     {
         private readonly EventService _service;
         private readonly IRequestLogger<EventsController> _logger;
-        private IActionResult InternalServerError() => StatusCode(500, "Server has a problem with retring data.");
 
         public EventsController(IRequestLogger<EventsController> logger, EventService service)
         {
@@ -26,17 +25,7 @@ namespace Eventer.API.Controllers
         [HttpGet]
         public IActionResult GetEvents()
         {
-            List<EventDTO> dtos;
-
-            try
-            {
-                dtos = _service.GetEvents().ToList();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInternalServerError(e);
-                return InternalServerError();
-            }
+            List<EventDTO> dtos = _service.GetEvents().ToList();
 
             if (dtos.Count == 0)
             {
@@ -50,25 +39,7 @@ namespace Eventer.API.Controllers
         [HttpPost]
         public IActionResult CreateEvent(EventDTO eventDTO)
         {
-            try
-            {
-                _service.CreateEvent(eventDTO);
-            }
-            catch (NotFoundInDBException e)
-            {
-                _logger.LogNotFound(e);
-                return NotFound();
-            }
-            catch (ArgumentException e)
-            {
-                _logger.LogBadRequest(e);
-                return BadRequest();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInternalServerError(e);
-                return InternalServerError();
-            }
+            _service.CreateEvent(eventDTO);
 
             return Ok();
         }
@@ -76,20 +47,7 @@ namespace Eventer.API.Controllers
         [HttpPut]
         public IActionResult UpdateEvent(EventDTO eventDTO)
         {
-            try
-            {
-                _service.UpdateEvent(eventDTO);
-            }
-            catch (NotFoundInDBException e)
-            {
-                _logger.LogNotFound(e);
-                return NotFound();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInternalServerError(e);
-                return InternalServerError();
-            }
+            _service.UpdateEvent(eventDTO);
 
             return Ok();
         }
@@ -97,25 +55,7 @@ namespace Eventer.API.Controllers
         [HttpDelete]
         public IActionResult DeleteEvent(Guid eventId)
         {
-            try
-            {
-                _service.DeleteEvent(eventId);
-            }
-            catch (NotFoundInDBException e)
-            {
-                _logger.LogNotFound(e);
-                return NotFound();
-            }
-            catch (InvalidOperationException e)
-            {
-                _logger.LogForbid(e);
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                _logger.LogInternalServerError(e);
-                return InternalServerError();
-            }
+            _service.DeleteEvent(eventId);
 
             return Ok();
         }
