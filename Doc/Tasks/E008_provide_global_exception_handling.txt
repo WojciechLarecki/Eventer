@@ -7,3 +7,6 @@ Application uses a lot of try-catch in controllers. Providing global exception h
 Steps:
 11.09.2024 23;00
 Start implementing task.
+
+14.09.2024 21;00
+Controller endpoint for catching exception implemented. Try-catch statements removed from controllers' endpoints.
