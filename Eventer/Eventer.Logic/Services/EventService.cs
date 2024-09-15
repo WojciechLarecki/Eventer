@@ -2,6 +2,7 @@
 using Eventer.Data.Models;
 using Eventer.Data.Repositories;
 using Eventer.Logic.DTOs;
+using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Validators;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
-        public void CreateEvent(EventDTO eventDTO)
+        public void CreateEvent(EventCreateDTO eventDTO)
         {
             CommonValidator.CheckIfNotNull(eventDTO.StartDate);
             CommonValidator.CheckIfNotNull(eventDTO.EndDate);

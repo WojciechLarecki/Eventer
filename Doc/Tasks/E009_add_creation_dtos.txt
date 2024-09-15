@@ -5,4 +5,5 @@ DESC:
 Now the application uses dtos which contain too many properties, no all of them are needed to create a resouce, therefore this state must be refactored.
 
 Steps:
-15.09.2024 23;00
+15.09.2024 14;35
+Set up User and Event CreateDTOs. End task.
