@@ -2,6 +2,7 @@
 using Eventer.Data.Models;
 using Eventer.Data.Repositories;
 using Eventer.Logic.DTOs;
+using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Validators;
 using System;
 using System.Collections.Generic;
@@ -45,13 +46,12 @@ namespace Eventer.Logic.Services
             _repoManager.Save();
         }
 
-        public void CreateUser(UserDTO userDTO)
+        public void CreateUser(UserCreateDTO userDTO)
         {
             UserValidator.CheckEmail(userDTO.Email);
             UserValidator.CheckPassword(userDTO.Password);
             UserValidator.CheckRole(userDTO.Role);
             
-            userDTO.Id = Guid.NewGuid();
             var user = userDTO.ToEntity();
             
             _repoManager.UserRepository.Add(user);

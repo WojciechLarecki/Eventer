@@ -2,6 +2,7 @@ using Eventer.API.Logging;
 using Eventer.Data.Exceptions;
 using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
+using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserDTO userDTO)
+        public IActionResult CreateUser(UserCreateDTO userDTO)
         {
             _service.CreateUser(userDTO);
             return Ok();

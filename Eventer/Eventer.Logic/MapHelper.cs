@@ -1,5 +1,6 @@
 ﻿using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
+using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Validators;
 using System;
 using System.Collections.Generic;
@@ -25,9 +26,8 @@ namespace Eventer.Logic
             return users.Select(u => ToDTO(u));
         }
 
-        public static User ToEntity(this UserDTO userDTO)
+        public static User ToEntity(this UserCreateDTO userDTO)
         {
-            UserValidator.CheckGuid(userDTO.Id);
             UserValidator.CheckEmail(userDTO.Email);
             UserValidator.CheckPassword(userDTO.Password);
             UserValidator.CheckRole(userDTO.Role);
@@ -36,8 +36,7 @@ namespace Eventer.Logic
             {
                 Role = userDTO.Role!.Value,
                 Password = userDTO.Password!,
-                Email = userDTO.Email!,
-                Id = userDTO.Id!.Value
+                Email = userDTO.Email!
             };
         }
 
