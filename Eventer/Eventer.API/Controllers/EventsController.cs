@@ -27,7 +27,7 @@ namespace Eventer.API.Controllers
         public IActionResult GetEvents()
         {
             List<EventDTO> dtos = _service.GetEvents().ToList();
-
+            
             if (dtos.Count == 0)
             {
                 _logger.LogNoContent();
