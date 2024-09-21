@@ -10,3 +10,6 @@ I start task.
 
 21.09.2024 15;00
 Fix UserController.GetUsers method.
+
+21.09.2024 15;25
+Implement validation. End task.
