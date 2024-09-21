@@ -15,16 +15,25 @@ namespace Eventer.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _service;
+        private readonly IRequestLogger<UsersController> _logger;
 
         public UsersController(IRequestLogger<UsersController> logger, UserService service)
         {
+            _logger = logger;
             _service = service;
         }
 
         [HttpGet]
-        public IEnumerable<UserDTO> GetUsers()
+        public IActionResult GetUsers()
         {
-            return _service.GetUsers();
+            var users = _service.GetUsers().ToList();
+            if (users.Count == 0)
+            {
+                _logger.LogNoContent();
+                return NoContent();
+            }
+
+            return Ok(users);
         }
 
         [HttpPost]

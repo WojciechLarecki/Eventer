@@ -7,3 +7,6 @@ For now appliaction do not have any kind of validation for proper model state. W
 Steps:
 19.09.2024 23;00
 I start task.
+
+21.09.2024 15;00
+Fix UserController.GetUsers method.
