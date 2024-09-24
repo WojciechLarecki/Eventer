@@ -1,0 +1,9 @@
+MOTIVE:
+Application should use async code to make maximum use of available threds. This should increase performance for multiple request given at the same time.
+
+DESC:
+For now appliaction do not have any tool to use blocked theads. With async code blocked threads can be unlocked and provided to additional requests.
+
+Steps:
+24.09.2024 23;00
+I start task.
