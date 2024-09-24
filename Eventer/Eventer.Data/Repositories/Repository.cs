@@ -28,6 +28,18 @@ namespace Eventer.Data.Repositories
             return query.ToList();
         }
 
+        public async Task<IEnumerable<T>> GetAllAsync(bool trackChanges = false, Expression<Func<T, bool>>? condition = null)
+        {
+            var query = _context.Set<T>().AsQueryable();
+
+            if (!trackChanges)
+                query = query.AsNoTracking();
+            if (condition != null)
+                query = query.Where(condition);
+
+            return await query.ToListAsync();
+        }
+
         public T? GetOne(bool trackChanges = false, Expression<Func<T, bool>>? condition = null)
         {
             var query = _context.Set<T>().AsQueryable();

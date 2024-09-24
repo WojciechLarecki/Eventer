@@ -51,9 +51,9 @@ namespace Eventer.Logic.Services
             _repoManager.EventsRepository.Delete(eventToDelete);
         }
 
-        public IEnumerable<EventDTO> GetEvents()
+        public async Task<IEnumerable<EventDTO>> GetEventsAsync()
         {
-            var events = _repoManager.EventsRepository.GetAll();
+            var events = await _repoManager.EventsRepository.GetAllAsync();
             var eventDTOs = events.ToDTOs();
 
             return eventDTOs;

@@ -24,9 +24,9 @@ namespace Eventer.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEvents()
+        public async Task<IActionResult> GetEventsAsync()
         {
-            List<EventDTO> dtos = _service.GetEvents().ToList();
+            List<EventDTO> dtos = (await _service.GetEventsAsync()).ToList();
             
             if (dtos.Count == 0)
             {
