@@ -53,10 +53,10 @@ namespace Eventer.API.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public IActionResult DeleteEvent(Guid eventId)
+        [HttpDelete("{eventId:Guid}")]
+        public async Task<IActionResult> DeleteEventAsync(Guid eventId)
         {
-            _service.DeleteEvent(eventId);
+            await _service.DeleteEventAsync(eventId);
 
             return Ok();
         }

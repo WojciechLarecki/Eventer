@@ -41,9 +41,9 @@ namespace Eventer.Logic.Services
             return eventToDB.ToDTO();
         }
 
-        public void DeleteEvent(Guid eventId)
+        public async Task DeleteEventAsync(Guid eventId)
         {
-            var eventToDelete = _repoManager.EventsRepository.FindFull(eventId);
+            var eventToDelete = await _repoManager.EventsRepository.FindFullAsync(eventId);
 
             if (eventToDelete == null)
             {
@@ -51,6 +51,8 @@ namespace Eventer.Logic.Services
             }
 
             _repoManager.EventsRepository.Delete(eventToDelete);
+
+            await _repoManager.SaveAsync();
         }
 
         public async Task<IEnumerable<EventDTO>> GetEventsAsync()

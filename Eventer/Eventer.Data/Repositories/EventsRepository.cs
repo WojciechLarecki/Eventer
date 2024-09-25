@@ -30,7 +30,13 @@ namespace Eventer.Data.Repositories
             {
                 throw new InvalidOperationException("Event is not empty, therefore cannot be deleted.");
             }
-            
+
+            // remove users links to this event
+            foreach (var user in eventToDelete.Users)
+            {
+                user.Events.Remove(eventToDelete);
+            }
+
             _context.Events.Remove(eventToDelete);
         }
 
@@ -50,6 +56,14 @@ namespace Eventer.Data.Repositories
                 .Where(e => e.Id == id)
                 .Include(e => e.Users)
                 .FirstOrDefault();
+        }
+
+        public async Task<Event?> FindFullAsync(Guid id)
+        {
+            return await _context.Events
+                .Where(e => e.Id == id)
+                .Include(e => e.Users)
+                .FirstOrDefaultAsync();
         }
     }
 }
