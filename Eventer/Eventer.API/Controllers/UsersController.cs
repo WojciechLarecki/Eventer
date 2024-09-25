@@ -24,9 +24,10 @@ namespace Eventer.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetUsers()
+        public async Task<IActionResult> GetUsersAsync()
         {
-            var users = _service.GetUsers().ToList();
+            var users = (await _service.GetUsersAsync()).ToList();
+            
             if (users.Count == 0)
             {
                 _logger.LogNoContent();

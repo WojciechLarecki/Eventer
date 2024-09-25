@@ -63,9 +63,9 @@ namespace Eventer.Logic.Services
             _repoManager.UserRepository.Delete(guid);
         }
 
-        public IEnumerable<UserDTO> GetUsers()
+        public async Task<IEnumerable<UserDTO>> GetUsersAsync()
         {
-            var users = _repoManager.UserRepository.GetAll(false);
+            var users = await _repoManager.UserRepository.GetAllAsync();
             var userDTOs = users.ToDTOs();
             return userDTOs;
         }

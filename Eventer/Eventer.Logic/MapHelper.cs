@@ -18,9 +18,11 @@ namespace Eventer.Logic
             return new UserDTO()
             {
                 Id = user.Id,
-                Email = user.Email
+                Email = user.Email,
+                Role = user.Role
             };
         }
+
         public static IEnumerable<UserDTO> ToDTOs(this IEnumerable<User> users)
         {
             return users.Select(u => ToDTO(u));
