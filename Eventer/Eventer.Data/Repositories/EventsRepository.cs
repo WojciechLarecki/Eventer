@@ -39,6 +39,11 @@ namespace Eventer.Data.Repositories
             return _context.Events.Find(id);
         }
 
+        public async Task<Event?> FindAsync(Guid id)
+        {
+            return await _context.Events.FindAsync(id);
+        }
+
         public Event? FindFull(Guid id)
         {
             return _context.Events

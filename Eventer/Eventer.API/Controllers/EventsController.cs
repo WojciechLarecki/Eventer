@@ -46,9 +46,9 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateEvent(EventDTO eventDTO)
+        public async Task<IActionResult> UpdateEventAsync(EventDTO eventDTO)
         {
-            _service.UpdateEvent(eventDTO);
+            await _service.UpdateEventAsync(eventDTO);
 
             return Ok();
         }

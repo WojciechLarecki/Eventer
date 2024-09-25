@@ -61,14 +61,14 @@ namespace Eventer.Logic.Services
             return eventDTOs;
         }
 
-        public void UpdateEvent(EventDTO eventDTO)
+        public async Task UpdateEventAsync(EventDTO eventDTO)
         {
             if (eventDTO.Id == null)
             {
                 throw new ArgumentException("Event must have an id.");
             }
 
-            var dbEvent = _repoManager.EventsRepository.Find(eventDTO.Id.Value);
+            var dbEvent = await _repoManager.EventsRepository.FindAsync(eventDTO.Id.Value);
 
             if (dbEvent == null)
             {
@@ -84,7 +84,7 @@ namespace Eventer.Logic.Services
             dbEvent.Name = eventDTO.Name!;
             dbEvent.JoinDate = eventDTO.JoinDate;
 
-            _repoManager.Save();
+            await _repoManager.SaveAsync();
         }
     }
 }
