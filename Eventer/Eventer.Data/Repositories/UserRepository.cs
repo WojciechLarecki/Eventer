@@ -20,9 +20,19 @@ namespace Eventer.Data.Repositories
             _context.Users.Add(user);
         }
 
+        public async Task AddAsync(User user)
+        {
+            await _context.Users.AddAsync(user);
+        }
+
         public User? Find(Guid id)
         {
             return _context.Users.Find(id);
+        }
+
+        public async Task<User?> FindAsync(Guid id)
+        {
+            return await _context.Users.FindAsync(id);
         }
 
         public void Delete(Guid id)

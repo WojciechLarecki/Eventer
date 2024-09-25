@@ -46,7 +46,7 @@ namespace Eventer.Logic.Services
             _repoManager.Save();
         }
 
-        public void CreateUser(UserCreateDTO userDTO)
+        public async Task<UserDTO> CreateUserAsync(UserCreateDTO userDTO)
         {
             UserValidator.CheckEmail(userDTO.Email);
             UserValidator.CheckPassword(userDTO.Password);
@@ -54,8 +54,10 @@ namespace Eventer.Logic.Services
             
             var user = userDTO.ToEntity();
             
-            _repoManager.UserRepository.Add(user);
-            _repoManager.Save();
+            await _repoManager.UserRepository.AddAsync(user);
+            await _repoManager.SaveAsync();
+
+            return user.ToDTO();
         }
 
         public void DeleteUser(Guid guid)
@@ -70,20 +72,21 @@ namespace Eventer.Logic.Services
             return userDTOs;
         }
 
-        public void UpdateUser(UserDTO userDTO)
+        public async Task UpdateUserAsync(UserDTO userDTO)
         {
             UserValidator.CheckGuid(userDTO.Id);
             UserValidator.CheckEmail(userDTO.Email);
             UserValidator.CheckRole(userDTO.Role);
 
-            var user = _repoManager.UserRepository.Find(userDTO.Id!.Value);
+            var user = await _repoManager.UserRepository.FindAsync(userDTO.Id!.Value);
 
             if (user == null)
                 throw new NotFoundInDBException("User not found in database.");
 
             user.Email = userDTO.Email!;
             user.Role = userDTO.Role!.Value;
-            _repoManager.Save();
+            
+            await _repoManager.SaveAsync();
         }
     }
 }

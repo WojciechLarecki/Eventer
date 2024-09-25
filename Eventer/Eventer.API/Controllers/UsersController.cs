@@ -38,16 +38,16 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateUser(UserCreateDTO userDTO)
+        public async Task<IActionResult> CreateUserAsync(UserCreateDTO userDTO)
         {
-            _service.CreateUser(userDTO);
-            return Ok();
+            var dto = await _service.CreateUserAsync(userDTO);
+            return Ok(dto);
         }
 
         [HttpPut]
-        public IActionResult EditUser(UserDTO userDTO)
+        public async Task<IActionResult> UpdateUserAsync(UserDTO userDTO)
         {
-            _service.UpdateUser(userDTO);
+            await _service.UpdateUserAsync(userDTO);
             return Ok();
         }
 
