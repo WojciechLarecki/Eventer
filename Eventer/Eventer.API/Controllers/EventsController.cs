@@ -38,11 +38,11 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEvent(EventCreateDTO eventDTO)
+        public async Task<IActionResult> CreateEventAsync(EventCreateDTO eventDTO)
         {
-            _service.CreateEvent(eventDTO);
+            var dto = await _service.CreateEventAsync(eventDTO);
 
-            return Ok();
+            return Ok(dto);
         }
 
         [HttpPut]

@@ -19,6 +19,11 @@ namespace Eventer.Data.Repositories
             _context.Events.Add(eventToDB);
         }
 
+        public async Task AddAsync(Event eventToDB)
+        {
+            await _context.Events.AddAsync(eventToDB);
+        }
+
         public void Delete(Event eventToDelete)
         {
             if (eventToDelete.Users.Count != 0)

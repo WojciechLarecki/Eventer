@@ -22,5 +22,6 @@ namespace Eventer.Data.Repositories
         public UserRepository UserRepository => _userRepo.Value;
         public EventsRepository EventsRepository => _eventsRepo.Value;
         public void Save() => _context.SaveChanges();
+        public async Task SaveAsync() => await _context.SaveChangesAsync();
     }
 }

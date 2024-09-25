@@ -6,5 +6,6 @@
         UserRepository UserRepository { get; }
 
         void Save();
+        Task SaveAsync();
     }
 }

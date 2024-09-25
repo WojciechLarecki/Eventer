@@ -20,7 +20,7 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
-        public void CreateEvent(EventCreateDTO eventDTO)
+        public async Task<EventDTO> CreateEventAsync(EventCreateDTO eventDTO)
         {
             CommonValidator.CheckIfNotNull(eventDTO.StartDate);
             CommonValidator.CheckIfNotNull(eventDTO.EndDate);
@@ -34,9 +34,11 @@ namespace Eventer.Logic.Services
                 StartDate = eventDTO.StartDate!.Value,
                 EndDate = eventDTO.EndDate!.Value
             };
+            
+            await _repoManager.EventsRepository.AddAsync(eventToDB);
+            await _repoManager.SaveAsync();
 
-            _repoManager.EventsRepository.Add(eventToDB);
-            _repoManager.Save();
+            return eventToDB.ToDTO();
         }
 
         public void DeleteEvent(Guid eventId)
