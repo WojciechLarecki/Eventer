@@ -4,6 +4,7 @@ using Eventer.Data.Repositories;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Validators;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,9 +61,18 @@ namespace Eventer.Logic.Services
             return user.ToDTO();
         }
 
-        public void DeleteUser(Guid guid)
+        public async Task DeleteUserAsync(Guid guid)
         {
-            _repoManager.UserRepository.Delete(guid);
+            var user = await _repoManager.UserRepository.FindAsync(guid);
+
+            if (user == null)
+            {
+                throw new NotFoundInDBException(nameof(User), guid);
+            }
+
+            _repoManager.UserRepository.Delete(user);
+
+            await _repoManager.SaveAsync();
         }
 
         public async Task<IEnumerable<UserDTO>> GetUsersAsync()

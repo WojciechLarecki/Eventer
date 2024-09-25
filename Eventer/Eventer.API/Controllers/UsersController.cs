@@ -52,9 +52,10 @@ namespace Eventer.API.Controllers
         }
 
         [HttpDelete("{id:Guid}")]
-        public IActionResult DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
-            _service.DeleteUser(id);
+            await _service.DeleteUserAsync(id);
+            
             return Ok();
         }
 

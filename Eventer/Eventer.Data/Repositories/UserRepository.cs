@@ -35,15 +35,26 @@ namespace Eventer.Data.Repositories
             return await _context.Users.FindAsync(id);
         }
 
-        public void Delete(Guid id)
+        public void Delete(User user)
         {
-            var user = _context.Users.Find(id);
+            // delete user's links to events.
+            foreach (var @event in user.Events)
+            {
+                @event.Users.Remove(user);
+            }
 
-            if (user != null)
-                _context.Users.Remove(user);
+            _context.Users.Remove(user);
         }
 
         public User? FindFull(Guid id)
+        {
+            return _context.Users
+                .Where(u => u.Id == id)
+                .Include(u => u.Events)
+                .FirstOrDefault();
+        }
+
+        public User? FindFullAsync(Guid id)
         {
             return _context.Users
                 .Where(u => u.Id == id)
