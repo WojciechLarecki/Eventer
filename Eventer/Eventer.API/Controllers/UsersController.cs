@@ -60,17 +60,17 @@ namespace Eventer.API.Controllers
         }
 
         [HttpPost("/Events/{eventId:Guid}/Users/{userId:Guid}")]
-        public IActionResult AddUserToEvent(Guid eventId, Guid userId)
+        public async Task<IActionResult> AddUserToEventAsync(Guid eventId, Guid userId)
         {
-            _service.AddUserToEvent(eventId, userId);
+            await _service.AddUserToEventAsync(eventId, userId);
 
             return Ok();
         }
 
         [HttpDelete("/Events/{eventId:Guid}/Users/{userId:Guid}")]
-        public IActionResult DeleteUserFromEvent(Guid eventId, Guid userId)
+        public async Task<IActionResult> DeleteUserFromEventAsync(Guid eventId, Guid userId)
         {
-            _service.DeleteUserFromEvent(eventId, userId);
+            await _service.DeleteUserFromEventAsync(eventId, userId);
 
             return Ok();
         }

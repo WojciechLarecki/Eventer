@@ -21,30 +21,30 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
-        public void AddUserToEvent(Guid eventId, Guid userId)
+        public async Task AddUserToEventAsync(Guid eventId, Guid userId)
         {
-            var eventFromDB = _repoManager.EventsRepository.FindFull(eventId);
+            var eventFromDB = await _repoManager.EventsRepository.FindFullAsync(eventId);
             CommonValidator.CheckIfNotNull(eventFromDB);   
             
-            var userFromDB = _repoManager.UserRepository.Find(userId);
+            var userFromDB = await _repoManager.UserRepository.FindAsync(userId);
             CommonValidator.CheckIfNotNull(userFromDB);
             
             eventFromDB!.Users.Add(userFromDB!);
 
-            _repoManager.Save();
+            await _repoManager.SaveAsync();
         }
 
-        public void DeleteUserFromEvent(Guid eventId, Guid userId)
+        public async Task DeleteUserFromEventAsync(Guid eventId, Guid userId)
         {
-            var eventFromDB = _repoManager.EventsRepository.FindFull(eventId);
+            var eventFromDB = await _repoManager.EventsRepository.FindFullAsync(eventId);
             CommonValidator.CheckIfNotNull(eventFromDB);
 
-            var userFromDB = _repoManager.UserRepository.Find(userId);
+            var userFromDB = await _repoManager.UserRepository.FindAsync(userId);
             CommonValidator.CheckIfNotNull(userFromDB);
 
             eventFromDB!.Users.Remove(userFromDB!);
 
-            _repoManager.Save();
+            await _repoManager.SaveAsync();
         }
 
         public async Task<UserDTO> CreateUserAsync(UserCreateDTO userDTO)
