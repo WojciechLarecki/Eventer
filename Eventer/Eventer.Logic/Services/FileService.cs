@@ -19,14 +19,14 @@ namespace Eventer.Logic.Services
             _repoManager = manager;
         }
 
-        public (byte[], string) GetEventUsersListCSV(Guid eventId)
+        public async Task<(byte[], string)> GetEventUsersListCSVAsync(Guid eventId)
         {
-            var eventDB = _repoManager.EventsRepository.FindFull(eventId) ?? throw new NotFoundInDBException("Event not found in database.");
+            var eventDB = await _repoManager.EventsRepository.FindFullAsync(eventId) ?? throw new NotFoundInDBException("Event not found in database.");
             var fileName = GetUserListCSVFileName(eventDB.Name);
             var writer = new CSVWriter();
             
             writer.WriteLine("Email");
-            foreach (var user in eventDB.Users.ToList())
+            foreach (var user in eventDB.Users)
             {
                 writer.WriteLine(user.Email);
             }
@@ -36,9 +36,9 @@ namespace Eventer.Logic.Services
             return (content, fileName);
         }
 
-        public (byte[], string) GetUserEventsListCSV(Guid userId)
+        public async Task<(byte[], string)> GetUserEventsListCSVAsync(Guid userId)
         {
-            var user = _repoManager.UserRepository.FindFull(userId) ?? throw new NotFoundInDBException("Event not found in database.");
+            var user = await _repoManager.UserRepository.FindFullAsync(userId) ?? throw new NotFoundInDBException("Event not found in database.");
             var fileName = GetEventsListCSVFileName(user.Email);
             var writer = new CSVWriter();
 

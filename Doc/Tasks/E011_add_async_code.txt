@@ -10,3 +10,6 @@ I start task.
 
 25.09.2024 21;30
 Added async code to EventsController.
+
+26.09.2024 23;50
+Added async to UserController and CSVController, end task.

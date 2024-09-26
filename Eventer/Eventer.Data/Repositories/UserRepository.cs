@@ -54,12 +54,12 @@ namespace Eventer.Data.Repositories
                 .FirstOrDefault();
         }
 
-        public User? FindFullAsync(Guid id)
+        public async Task<User?> FindFullAsync(Guid id)
         {
-            return _context.Users
+            return await _context.Users
                 .Where(u => u.Id == id)
                 .Include(u => u.Events)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
     }
 }

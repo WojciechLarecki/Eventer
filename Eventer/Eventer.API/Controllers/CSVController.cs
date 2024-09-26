@@ -12,22 +12,20 @@ namespace Eventer.API.Controllers
     public class CSVController : ControllerBase
     {
         private readonly FileService _service;
-        private readonly IRequestLogger<CSVController> _logger;
 
-        public CSVController(IRequestLogger<CSVController> logger, FileService service)
+        public CSVController(FileService service)
         {
             _service = service;
-            _logger = logger;
         }
 
-        [HttpGet("Event/{eventId:Guid}/Users/listCSV")]
-        public IActionResult GetEventUsersListCSV(Guid eventId)
+        [HttpGet("Events/{eventId:Guid}/Users/listCSV")]
+        public async Task<IActionResult> GetEventUsersListCSVAsync(Guid eventId)
         {
             FileContentResult file;
             byte[] content;
             string fileName;
 
-            (content, fileName) = _service.GetEventUsersListCSV(eventId);
+            (content, fileName) = await _service.GetEventUsersListCSVAsync(eventId);
 
             file = new FileContentResult(content, "text/csv");
             file.FileDownloadName = fileName;
@@ -35,14 +33,14 @@ namespace Eventer.API.Controllers
             return file;
         }
 
-        [HttpGet("User/{userId:Guid}/Events/listCSV")]
-        public IActionResult GetUserEventsListCSV(Guid userId)
+        [HttpGet("Users/{userId:Guid}/Events/listCSV")]
+        public async Task<IActionResult> GetUserEventsListCSVAsync(Guid userId)
         {
             FileContentResult file;
             byte[] content;
             string fileName;
 
-            (content, fileName) = _service.GetUserEventsListCSV(userId);
+            (content, fileName) = await _service.GetUserEventsListCSVAsync(userId);
 
             file = new FileContentResult(content, "text/csv");
             file.FileDownloadName = fileName;
