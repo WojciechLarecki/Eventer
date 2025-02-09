@@ -31,8 +31,8 @@ namespace Eventer.Logic.Validators
         {
             if (!role.HasValue)
                 throw new ArgumentNullException("User role is null");
-            if (role != 0 || role != 1)
-                throw new ArgumentException("Invalida user role.");
+            if (role != 0 && role != 1)
+                throw new ArgumentException("Invalid user role.");
         }
 
         public static void CheckPassword(string? password)
