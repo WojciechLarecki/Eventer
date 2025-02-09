@@ -12,11 +12,11 @@ namespace Eventer.Logic.DTOs.CreateDTOs
 
         [Required]
         [EmailAddress] // checks if string contains '@' sign.
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? Email { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [MaxLength(50)]
         public string? Password { get; set; }
 
         [Required]

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Eventer.Data.Models
 {
@@ -11,7 +10,9 @@ namespace Eventer.Data.Models
         }
 
         public Guid Id { get; set; }
-        public string Name { get; set; } = null!;
+        
+        [MaxLength(50)]
+        public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime? JoinDate { get; set; }

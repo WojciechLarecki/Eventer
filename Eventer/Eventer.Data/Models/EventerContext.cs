@@ -26,7 +26,7 @@ namespace Eventer.Data.Models
                 optionsBuilder.UseSqlServer("Name=Eventer");
             }
         }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Event>(entity =>
