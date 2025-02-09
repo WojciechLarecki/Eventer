@@ -21,7 +21,7 @@ namespace Eventer.Logic.Validators
 
         public static void CheckEmail(string? email)
         {
-            if (!string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(email))
                 throw new ArgumentNullException("Email of user is null or empty.");
 
             // TO DO: regex validation
@@ -37,7 +37,7 @@ namespace Eventer.Logic.Validators
 
         public static void CheckPassword(string? password)
         {
-            if (!string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(password))
                 throw new ArgumentNullException("User password is null or empty");
         }
     }
