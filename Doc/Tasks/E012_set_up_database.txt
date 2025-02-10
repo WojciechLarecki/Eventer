@@ -1,0 +1,23 @@
+MOTIVE:
+Application should be able to connect to web ui. 
+To speed up development and make changes to db simpler change createing strategy from database first to code first. 
+
+DESC:
+To provide connection to web api application should implement cors policy, as well as fix bugs in 'get' resource endpoints.
+To make application code first there is need to introduce ef core migrations.
+
+Steps:
+09.02.2025 21;00
+I start task.
+
+09.02.2025 21;45
+Change database development from database first to code first. Add migrations.
+
+10.02.2025 01;00
+Fix validations bugs.
+
+10.02.2025 15;00
+Add GetOne async to basic repository.
+
+10.02.2025 16;00
+Add CORS policy. Close task.
