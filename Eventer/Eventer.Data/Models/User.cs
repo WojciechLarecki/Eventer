@@ -10,7 +10,13 @@ namespace Eventer.Data.Models
         }
 
         public Guid Id { get; set; }
-        
+
+        [MaxLength(50)]
+        public string Name { get; set; }
+
+        [MaxLength(50)]
+        public string Surname { get; set; }
+
         [MaxLength(50)]
         public string Email { get; set; }
 

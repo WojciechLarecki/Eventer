@@ -19,7 +19,9 @@ namespace Eventer.Logic
             {
                 Id = user.Id,
                 Email = user.Email,
-                Role = user.Role
+                Role = user.Role,
+                Name = user.Name,
+                Surname = user.Surname
             };
         }
 
@@ -38,7 +40,9 @@ namespace Eventer.Logic
             {
                 Role = userDTO.Role!.Value,
                 Password = userDTO.Password!,
-                Email = userDTO.Email!
+                Email = userDTO.Email!,
+                Name = userDTO.Name!,
+                Surname = userDTO.Surname!,
             };
         }
 
