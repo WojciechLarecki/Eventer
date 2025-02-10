@@ -1,18 +1,10 @@
-﻿using Eventer.Logic.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Eventer.Logic.Validators
+﻿namespace Eventer.Logic.Validators
 {
     public static class UserValidator
     {
         public static void CheckGuid(Guid? guid)
         {
-            if (guid.HasValue)
+            if (!guid.HasValue)
                 throw new ArgumentNullException("Id of user is null");
 
             if (guid == Guid.Empty)

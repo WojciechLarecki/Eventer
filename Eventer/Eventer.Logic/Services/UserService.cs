@@ -98,5 +98,17 @@ namespace Eventer.Logic.Services
             
             await _repoManager.SaveAsync();
         }
+
+        public async Task<UserDTO> GetUser(Guid id)
+        {
+            UserValidator.CheckGuid(id);
+
+            var user = await _repoManager.UserRepository.GetOneAsync();
+
+            if (user == null)
+                throw new NotFoundInDBException("User not found in database");
+
+            return user.ToDTO();
+        }
     }
 }

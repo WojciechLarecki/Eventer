@@ -51,5 +51,17 @@ namespace Eventer.Data.Repositories
 
             return query.FirstOrDefault();
         }
+
+        public Task<T?> GetOneAsync(bool trackChanges = false, Expression<Func<T, bool>>? condition = null)
+        {
+            var query = _context.Set<T>().AsQueryable();
+
+            if (!trackChanges)
+                query = query.AsNoTracking();
+            if (condition != null)
+                query = query.Where(condition);
+
+            return query.FirstOrDefaultAsync();
+        }
     }
 }

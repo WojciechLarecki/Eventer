@@ -37,6 +37,13 @@ namespace Eventer.API.Controllers
             return Ok(users);
         }
 
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetUserAsync(Guid id)
+        {
+            var user = await _service.GetUser(id);
+            return Ok(user);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateUserAsync(UserCreateDTO userDTO)
         {

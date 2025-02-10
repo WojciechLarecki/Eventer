@@ -11,5 +11,6 @@ namespace Eventer.Data.Repositories
     {
         IEnumerable<T> GetAll(bool trackChanges = false, Expression<Func<T, bool>>? condition = null);
         T? GetOne(bool trackChanges = false, Expression<Func<T, bool>>? condition = null);
+        Task<T?> GetOneAsync(bool trackChanges = false, Expression<Func<T, bool>>? condition = null);
     }
 }
