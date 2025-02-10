@@ -1,0 +1,10 @@
+MOTIVE:
+To show data in 
+
+DESC:
+To provide connection to web api application should implement cors policy, as well as fix bugs in 'get' resource endpoints.
+To make application code first there is need to introduce ef core migrations.
+
+Steps:
+10.02.2025 16;15
+I start task.
