@@ -1,12 +1,8 @@
 using Eventer.API.Logging;
-using Eventer.Data.Exceptions;
-using Eventer.Data.Models;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Reflection.Metadata;
 
 namespace Eventer.API.Controllers
 {

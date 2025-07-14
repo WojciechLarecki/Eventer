@@ -4,11 +4,6 @@ using Eventer.Data.Repositories;
 using Eventer.Logic.DTOs;
 using Eventer.Logic.DTOs.CreateDTOs;
 using Eventer.Logic.Validators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eventer.Logic.Services
 {
